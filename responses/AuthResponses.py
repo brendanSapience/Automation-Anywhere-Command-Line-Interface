@@ -29,7 +29,8 @@ def Process_Auth_Login_Response(res,url):
     if(res.status_code < 400):
         #print(result['token'])
         token = result['token']
-        print("Token:["+token+"]")
+        #print("Token:["+token+"]")
+        print("Token Stored.")
         DataUtils.StoreAuthToken(token)
         DataUtils.StoreUrl(url)
         return False
