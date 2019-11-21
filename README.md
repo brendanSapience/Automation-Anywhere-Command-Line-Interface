@@ -28,6 +28,13 @@ The **authentication token** along with the **URL** passed in the authentication
 
 Each Utility contains **at least 1 option**: **-o**. **-o** is used to specify the **operation to run** (ex: create, list, delete, update, etc.)
 
+## Utilities Currently Available:
+
+* AUTH_utils.py: Authentication commands (login, logout, get token info)
+* ROLES_utils.py: Roles management commands (list)
+* DEVICES_utils.py: Devices management commands (list)
+* USERS_utils.py: Users management commands (create)
+
 
 ## TO DO
 
