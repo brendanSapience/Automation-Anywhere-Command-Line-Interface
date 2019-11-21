@@ -5,10 +5,16 @@ DATAFILEPATH = "./data/"
 TOKENFILE = os.path.join(DATAFILEPATH, ".token_")
 URLFILE = os.path.join(DATAFILEPATH, ".url_")
 
+
 Animals = ['Dog','Mouse','Cat','Elephant','Cow','Eagle','Snake','Ape']
 Colors = ['Blue','Pink','Yellow','Green','Red','Orange']
 
+def CheckAndCreateDataFolderIfNeeded():
+    if not os.path.exists(DATAFILEPATH):
+        os.makedirs(DATAFILEPATH)
+
 def listSessions():
+    CheckAndCreateDataFolderIfNeeded()
     sessionlist = []
     try:
         for root, dirs, files in os.walk(DATAFILEPATH):
@@ -20,6 +26,7 @@ def listSessions():
         return e,True
 
 def clearSessions():
+    CheckAndCreateDataFolderIfNeeded()
     try:
         for root, dirs, files in os.walk(DATAFILEPATH):
             for file in files:
@@ -29,16 +36,19 @@ def clearSessions():
         return True
 
 def deleteAFile(filename):
+    CheckAndCreateDataFolderIfNeeded()
     try:
         os.remove(filename)
     except:
         pass
 
 def DeleteSessionFiles(sessionname):
+    CheckAndCreateDataFolderIfNeeded()
     deleteAFile(URLFILE+sessionname)
     deleteAFile(TOKENFILE+sessionname)
 
 def StoreUrl(url,sessionname):
+    CheckAndCreateDataFolderIfNeeded()
     SessionFileName = URLFILE+sessionname
     deleteAFile(SessionFileName)
     text_file = open(SessionFileName, "w+")
@@ -57,6 +67,7 @@ def GetUrl(sessionname):
         exit(1)
 
 def StoreAuthToken(token,sessionname):
+    CheckAndCreateDataFolderIfNeeded()
     SessionFileName = TOKENFILE+sessionname
     deleteAFile(SessionFileName)
     text_file = open(SessionFileName, "w+")
