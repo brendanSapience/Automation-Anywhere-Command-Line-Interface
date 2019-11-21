@@ -23,16 +23,16 @@ def Process_Auth_Token_Response(res):
             print("Error Code: "+str(res.status_code))
             return True
 
-def Process_Auth_Login_Response(res,url):
+def Process_Auth_Login_Response(res,url,sessionname):
     result = json.loads(res.text)
     #print(res.text)
     if(res.status_code < 400):
         #print(result['token'])
         token = result['token']
         #print("Token:["+token+"]")
-        print("Token Stored.")
-        DataUtils.StoreAuthToken(token)
-        DataUtils.StoreUrl(url)
+        print("Token Stored in session: "+sessionname)
+        DataUtils.StoreAuthToken(token,sessionname)
+        DataUtils.StoreUrl(url,sessionname)
         return False
 
     else:
@@ -43,10 +43,10 @@ def Process_Auth_Login_Response(res,url):
             print("Error Code: "+rstr(es.status_code))
             return True
 
-def Process_Auth_Logout_Response(res):
+def Process_Auth_Logout_Response(res,sessionname):
 
     if(res.status_code < 400):
-        print("Success")
+        print("Success: logged out of session: "+sessionname)
         return False
 
     else:

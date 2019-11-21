@@ -25,15 +25,15 @@ def GET_LIST_BODY():
     )
     return b
 
-def list(CsvOutput):
+def list(sessionname,CsvOutput):
 
-    URL = DataUtils.GetUrl()+AUTH_LIST_URI
+    URL = DataUtils.GetUrl(sessionname)+AUTH_LIST_URI
 
     payload = GET_LIST_BODY()
     headers = {
         'Content-Type': "application/json",
         'cache-control': "no-cache",
-        'X-Authorization': DataUtils.GetAuthToken()
+        'X-Authorization': DataUtils.GetAuthToken(sessionname)
     }
 
     response = requests.request(AUTH_LIST_REQ_TYPE, URL, data=payload, headers=headers)
