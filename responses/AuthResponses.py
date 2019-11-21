@@ -17,10 +17,10 @@ def Process_Auth_Token_Response(res):
         return False
     else:
         if result['details']:
-            print("Error Code: "+res.status_code+" | Error Message: "+result['details'])
+            print("Error Code: "+str(res.status_code)+" | Error Message: "+result['details'])
             return True
         else:
-            print("Error Code: "+res.status_code)
+            print("Error Code: "+str(res.status_code))
             return True
 
 def Process_Auth_Login_Response(res,url):
@@ -37,10 +37,10 @@ def Process_Auth_Login_Response(res,url):
 
     else:
         if result['message']:
-            print("Error Code: "+res.status_code+" | Error Message: "+result['message'])
+            print("Error Code: "+str(res.status_code)+" | Error Message: "+result['message'])
             return True
         else:
-            print("Error Code: "+res.status_code)
+            print("Error Code: "+rstr(es.status_code))
             return True
 
 def Process_Auth_Logout_Response(res):
