@@ -2,7 +2,7 @@
 #
 # Author: Bren Sapience
 # Date: Nov 2019
-# Scope: Provide functions around RPA Device Management
+# Scope: Provide functions around RPA Activity Management
 #
 # Call Examples:
 #
@@ -14,7 +14,7 @@
 import argparse
 import sys
 sys.path.insert(1, './logics')
-import DevicesLogics
+import ActivitiesLogics
 
 #Allowed Operations - should be lower case
 SupportedOperations = ['list']
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # Operation should be available in all modules
-    parser.add_argument("-o","--operation", type=str,default = "list", help = "<list>:list existing devices", dest = "OPERATION")
+    parser.add_argument("-o","--operation", type=str,default = "list", help = "<list>:list existing activities", dest = "OPERATION")
     parser.add_argument("-c","--csv",default = False, help = "Return results in csv format (Default: False)", dest = "CsvOutput")
     parser.add_argument("-s","--session",type=str,default="", help = "<all> Session Name", dest = "sessionname")
 
@@ -41,4 +41,4 @@ if __name__ == '__main__':
 
     if OPTIONS.OPERATION.lower() == SupportedOperations[0]: #list
 
-        DevicesLogics.list(OPTIONS.sessionname,OPTIONS.CsvOutput)
+        ActivitiesLogics.list(OPTIONS.sessionname,OPTIONS.CsvOutput)
