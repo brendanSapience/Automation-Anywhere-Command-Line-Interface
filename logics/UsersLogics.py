@@ -2,6 +2,7 @@ import requests
 import json
 import sys
 import os
+import urllib.parse
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './responses')
@@ -26,11 +27,11 @@ def ConvertUsernameToList(username):
     else:
         return [username]
 
-def ConvertUsernameToListOfIDs(username):
+def ConvertUsernameToListOfIDs(username,sessionname):
     ListOfUsernames = username.split(",")
     Mappings = {}
     try:
-        res = list(False,False)
+        res = list(sessionname,False,False)
         JsonListOfUsers = json.loads(res.text)
 
         UserList = JsonListOfUsers['list']
@@ -111,8 +112,7 @@ def GET_USER_SET_LOGIN_BODY(username,loginuser,loginpassword):
 
 def list(sessionname,CsvOutput,ProcessOutput = True):
 
-    URL = DataUtils.GetUrl(sessionname)+USER_LIST_URI
-
+    URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), USER_LIST_URI)
     payload = GET_USER_LIST_BODY()
     headers = {
         'Content-Type': "application/json",
@@ -129,10 +129,11 @@ def list(sessionname,CsvOutput,ProcessOutput = True):
 def delete(sessionname,username):
     # delete API endpoint only takes the user id and not the user Name
     # all usernames passed need to be first converted to a list of user ids
-    AllUsernames = ConvertUsernameToListOfIDs(username)
+    AllUsernames = ConvertUsernameToListOfIDs(username,sessionname)
 
     for username,userid in  AllUsernames.items():
-        URL = DataUtils.GetUrl(sessionname)+USER_DELETE_URI+"/"+str(userid)
+        URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), USERUSER_DELETE_URI,str(userid))
+        USER_LIST_URI
         headers = {
             'Content-Type': "application/json",
             'cache-control': "no-cache",
@@ -146,7 +147,8 @@ def create(sessionname,username,password,email,roles,description,firstname,lastn
     AllUsernames = ConvertUsernameToList(username)
 
     for aUser in  AllUsernames:
-        URL = DataUtils.GetUrl(sessionname)+USER_CREATE_URI
+
+        URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), USER_CREATE_URI)
 
         payload = GET_USER_CREATE_BODY(aUser,password,email,roles,description,firstname,lastname)
         headers = {
@@ -163,8 +165,8 @@ def setlogin(sessionname,username,loginuser,loginpassword):
     AllUsernames = ConvertUsernameToList(username)
 
     for aUser in AllUsernames:
-        URL = DataUtils.GetUrl(sessionname)+USER_SETLOGIN_URI
 
+        URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), USER_SETLOGIN_URI)
         payload = GET_USER_SET_LOGIN_BODY(aUser,loginuser,loginpassword)
         headers = {
             'Content-Type': "application/json",

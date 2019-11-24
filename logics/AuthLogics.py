@@ -2,6 +2,7 @@ import requests
 import json
 import sys
 import os
+import urllib.parse
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './responses')
@@ -36,7 +37,7 @@ def GET_AUTH_LOGIN_BODY(login, password):
 
 def checktoken(token,sessionname):
 
-    URL = DataUtils.GetUrl(sessionname)+AUTH_TOKEN_URI
+    URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), AUTH_TOKEN_URI)
 
     payload = GET_AUTH_TOKEN_BODY(token)
     headers = {
@@ -50,8 +51,7 @@ def checktoken(token,sessionname):
 
 def login(url,login,password,sessionname):
 
-    URL = url+AUTH_LOGIN_URI
-
+    URL = urllib.parse.urljoin(url, AUTH_LOGIN_URI)
     #print(URL)
     payload = GET_AUTH_LOGIN_BODY(login,password)
     headers = {
@@ -64,7 +64,7 @@ def login(url,login,password,sessionname):
 
 def logout(sessionname):
 
-    URL = DataUtils.GetUrl(sessionname)+AUTH_LOGOUT_URI
+    URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), AUTH_LOGOUT_URI)
     headers = {
         'Content-Type': "application/json",
         'cache-control': "no-cache",

@@ -2,14 +2,15 @@ import requests
 import json
 import sys
 import os
+import urllib.parse
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './responses')
 import DataUtils
 import DevicesResponses
 
-AUTH_LIST_URI = "/v2/devices/list"
-AUTH_LIST_REQ_TYPE = "POST"
+DEVICE_LIST_URI = "/v2/devices/list"
+DEVICE_LIST_REQ_TYPE = "POST"
 
 def GET_LIST_BODY():
     b = json.dumps(
@@ -26,8 +27,7 @@ def GET_LIST_BODY():
     return b
 
 def list(sessionname,CsvOutput):
-
-    URL = DataUtils.GetUrl(sessionname)+AUTH_LIST_URI
+    URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), DEVICE_LIST_URI)
 
     payload = GET_LIST_BODY()
     headers = {
@@ -36,5 +36,5 @@ def list(sessionname,CsvOutput):
         'X-Authorization': DataUtils.GetAuthToken(sessionname)
     }
 
-    response = requests.request(AUTH_LIST_REQ_TYPE, URL, data=payload, headers=headers)
+    response = requests.request(DEVICE_LIST_REQ_TYPE, URL, data=payload, headers=headers)
     isInError = DevicesResponses.Process_list_Response(response,CsvOutput)

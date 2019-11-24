@@ -6,8 +6,8 @@
 #
 # Call Examples:
 #
-#   python3 ./AUTH_utils.py -o login -l "iqbot" -p "Un1ver\$e" -u "http://100.21.186.147"
-#   python3 ./AUTH_utils.py -o token -t "sdfgjkh23rjkh3245hjk345jkh324l5jewbrm23kl45jredfk;ewlkthr3jk54"
+#   python3 ./AUTH_utils.py -o login -l "iqbot" -p "Un1ver\$e" -u "http://100.21.186.147" -s aNewSession
+#   python3 ./AUTH_utils.py -o token -s aNewSession -t "sdfgjkh23rjkh3245hjk345jkh324l5jewbrm23kl45jredfk;ewlkthr3jk54" 
 #
 ##############################################################
 

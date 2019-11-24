@@ -2,6 +2,7 @@ import requests
 import json
 import sys
 import os
+import urllib.parse
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './responses')
@@ -32,8 +33,7 @@ def GET_LIST_BODY():
 
 def list(sessionname,CsvOutput):
 
-    URL = DataUtils.GetUrl(sessionname)+AUTH_LIST_URI
-
+    URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), AUTH_LIST_URI)
     payload = GET_LIST_BODY()
     headers = {
         'Content-Type': "application/json",

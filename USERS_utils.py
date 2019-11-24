@@ -6,7 +6,7 @@
 #
 # Call Examples:
 #
-#   python3 ./USERS_utils.py -o create -u test4 -p mylongpassword -e aa@aa.com -r "10,11"
+#   python3 ./USERS_utils.py -s MySession -o create -u test4 -p mylongpassword -e aa@aa.com -r "10,11"
 #
 #
 ##############################################################
