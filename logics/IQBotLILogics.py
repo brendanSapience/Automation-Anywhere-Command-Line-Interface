@@ -8,7 +8,7 @@ sys.path.insert(1, './libs')
 sys.path.insert(1, './responses')
 import DataUtils
 import IQBotLIResponses
-
+import IQBotCommons
 
 LI_LIST_URI = "/IQBot/api/projects"
 LI_LIST_REQ_TYPE = "GET"
@@ -36,34 +36,10 @@ def get_LI_GROUP_LIST_URI(LIID):
     #/IQBot/api/projects/4a505399-e0d5-45b4-ac18-ac88a1d9763a/categories?offset=0&limit=50&sort=-index&trainingNotRequired=true
     return "/IQBot/api/projects/"+LIID+"/categories?offset=0&limit=50&sort=-index"
 
-
-
-def ConvertLINameToLIID(sessionname,liname):
-
-    try:
-        res = list_learning_instances(sessionname,False,False)
-        #print(res.text)
-        JsonList = json.loads(res.text)
-        #print(res)
-        ItemList = JsonList['data']
-        #print(ItemList)
-        for item in ItemList:
-            ID = item['id']
-            NAME = item['name']
-            if(liname == NAME):
-                #print(ID)
-                return ID
-
-        return ""
-    except:
-        print("An error occured while converting the LI Name to LI ID.")
-        exit(1)
-
-
 def get_learning_instance_detail(learningInstanceName = "",learningInstanceID = "",sessionname = "",CsvOutput = False,ProcessOutput = True):
 
     if(learningInstanceName != ""):
-        learningInstanceID = ConvertLINameToLIID(sessionname,learningInstanceName)
+        learningInstanceID = IQBotCommons.ConvertLINameToLIID(sessionname,learningInstanceName)
 
     URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), get_LI_DETAIL_URI(learningInstanceID))
 
@@ -82,7 +58,7 @@ def get_learning_instance_detail(learningInstanceName = "",learningInstanceID = 
 def list_learning_instance_files(learningInstanceName = "",learningInstanceID = "",status="",sessionname = "",CsvOutput = False,ProcessOutput = True):
 
     if(learningInstanceName != ""):
-        learningInstanceID = ConvertLINameToLIID(sessionname,learningInstanceName)
+        learningInstanceID = IQBotCommons.ConvertLINameToLIID(sessionname,learningInstanceName)
 
     if(status == ""):
         URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), get_LI_FILE_LIST_URI(learningInstanceID))
@@ -119,7 +95,7 @@ def list_learning_instance_files(learningInstanceName = "",learningInstanceID = 
 def list_learning_instance_groups(learningInstanceName = "",learningInstanceID = "",sessionname = "",CsvOutput = False,ProcessOutput = True):
 
     if(learningInstanceName != ""):
-        learningInstanceID = ConvertLINameToLIID(sessionname,learningInstanceName)
+        learningInstanceID = IQBotCommons.ConvertLINameToLIID(sessionname,learningInstanceName)
 
     URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), get_LI_GROUP_LIST_URI(learningInstanceID))
 
@@ -136,18 +112,4 @@ def list_learning_instance_groups(learningInstanceName = "",learningInstanceID =
         return response
 
 def list_learning_instances(sessionname,CsvOutput,ProcessOutput = True):
-    URL = urllib.parse.urljoin(DataUtils.GetUrl(sessionname), LI_LIST_URI)
-
-    headers = {
-        'Content-Type': "application/json",
-        'cache-control': "no-cache",
-        'X-Authorization': DataUtils.GetAuthToken(sessionname)
-    }
-
-    response = requests.request(LI_LIST_REQ_TYPE, URL, headers=headers)
-
-    if(ProcessOutput):
-        isInError = IQBotLIResponses.Process_List_Response(response,CsvOutput)
-
-    else:
-        return response
+    return IQBotCommons.list_learning_instances(sessionname,CsvOutput,ProcessOutput)

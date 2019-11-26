@@ -21,3 +21,13 @@ def Process_List_Response(res,CsvOutput):
         else:
             print(result)
             exit(0)
+
+def Process_Grp_State_Change_Response(res,grp,liname,CsvOutput):
+    isError,isCsvOutput = StdResponses.ProcessStdResponse(res,CsvOutput)
+    GROUPNAME="Group_"+grp
+    if(isError):
+        print("Error changing "+GROUPNAME +" From LI ["+liname+"]")
+        exit(1)
+    else:
+        result = json.loads(res.text)
+        print(GROUPNAME +" in LI ["+liname+"] Changed successfully.")
