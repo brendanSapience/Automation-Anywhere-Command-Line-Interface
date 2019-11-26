@@ -2,7 +2,7 @@
 #
 # Author: Bren Sapience
 # Date: Nov 2019
-# Scope: Provide functions around IQ Bot Management
+# Scope: Provide functions around IQ Bot Learning Instance Management
 #
 # Call Examples:
 #

@@ -41,7 +41,10 @@ Each Utility contains **at least 2 options**: **-s** and **-o**. **-o** is used 
 * AUTH_utils.py: Authentication commands (login, logout, get token info, list sessions, clear sessions)
 * ROLES_utils.py: Roles management commands (list)
 * DEVICES_utils.py: Devices management commands (list)
-* USERS_utils.py: Users management commands (create,set login, list, delete)
+* USERS_utils.py: Users management commands (create, set login, list, delete)
+* ACTIVITIES_utils.py: Activities management commands (list)
+* IQBOT_instances.py: IQ Bot Learning Instance commands (list, list_files, list_groups, show)
+* IQBOT_groups.py: IQ Bot Group commands (list, activate, deactivate)
 
 
 ## TO DO
